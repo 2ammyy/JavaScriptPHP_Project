@@ -1,5 +1,4 @@
 
-
 document.addEventListener('DOMContentLoaded', function() {
     // Animation d'apparition du contenu principal
     const homeContent = document.querySelector('.home .content');
@@ -31,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Effet de changement de couleur pour la navbar au scroll
     const navbar = document.querySelector('.navbar');
     window.addEventListener('scroll', function() {
-      if (window.scrollY > 50) {
+      if (window.scrollY > 50)  {
         navbar.classList.add('scrolled');
       } else {
         navbar.classList.remove('scrolled');
@@ -115,3 +114,14 @@ floatBtn.addEventListener('mousemove', (e) => {
 floatBtn.addEventListener('mouseleave', () => {
   floatBtn.style.boxShadow = '0 4px 20px rgba(66, 133, 244, 0.3)';
 });
+
+// Animation simple au survol (optionnel)
+const flag = document.querySelector('.palestine-flag');
+if (flag) {
+  flag.addEventListener('mouseenter', () => {
+    flag.style.animation = 'wave 1s ease-in-out infinite';
+  });
+  flag.addEventListener('mouseleave', () => {
+    flag.style.animation = 'wave 3s ease-in-out infinite';
+  });
+}
