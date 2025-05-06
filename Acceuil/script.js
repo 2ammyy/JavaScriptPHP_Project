@@ -1,4 +1,3 @@
-// script.js amélioré
 
 document.addEventListener('DOMContentLoaded', function() {
   // Animation d'apparition du contenu principal
