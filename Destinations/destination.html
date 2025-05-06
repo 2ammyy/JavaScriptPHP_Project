@@ -7,11 +7,11 @@
     <title>Destinations - Travel Agency</title>
     <!-- Preload -->
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" as="style">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" as="style">
     <link rel="preload" href="./css/destination.css" as="style">
     <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="./destination.css">
 </head>
 <body>
@@ -28,7 +28,7 @@
                         <polygon points="0,0 13,12 0,24" fill="#e4312b"/>
                     </svg>
                 </div>
-                <a class="navbar-brand text-white me-2" href="../Accueil/Accueil.html">TRAVEL</a>
+                <a class="navbar-brand text-white me-2" href="../Acceuil/Acceuil.html">TRAVEL</a>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -36,18 +36,22 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="../Accueil/Accueil.html">Accueil</a>
+                      <a class="nav-link active text-white" href="../Acceuil/Acceuil.html" aria-current="page">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="../Offres/Offres.html">Offres</a>
+                      <a class="nav-link text-white" href="../Offres/activite.html">Activités</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active text-white" href="../Destinations/destination.html" aria-current="page">Destinations</a>
+                      <a class="nav-link text-white" href="./Destinations/destination.html" >Destinations</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                      <a class="nav-link text-white" href="../login/login.php">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="../Login/Login.html">Connexion</a>
+                      <a class="nav-link text-white" href="../Register/Register.html">Register</a>
                     </li>
-                </ul>
+                  </ul>
             </div>
         </div>
     </nav>
@@ -130,40 +134,12 @@
                 </div>
             </section>
 
-            <!-- Section Témoignages -->
+            <!-- Section Témoignages améliorée -->
             <section id="testimonials" class="fade-in">
                 <h2 class="section-title">Ce Que Nos Clients Disent</h2>
-                <div class="testimonials-slider">
-                    <div class="testimonial active">
-                        <div class="testimonial-content">
-                            <p>"Le voyage organisé par Travel Agency a dépassé toutes mes attentes. Tout était parfaitement planifié!"</p>
-                            <div class="testimonial-author">
-                                <img src="./media/client1.jpg" alt="Client 1" >
-                                <span>Marie D.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial">
-                        <div class="testimonial-content">
-                            <p>"Une expérience incroyable avec des guides locaux exceptionnels. Je recommande vivement!"</p>
-                            <div class="testimonial-author">
-                                <img src="./media/client2.jpg" alt="Client 2">
-                                <span>Sophie L.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial">
-                        <div class="testimonial-content">
-                            <p>"Service client impeccable et itinéraire bien pensé. Nous reviendrons certainement."</p>
-                            <div class="testimonial-author">
-                                <img src="./media/client3.jpg" alt="Client 3" >
-                                <span>Jean P.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slider-controls">
-                        <button class="prev-testimonial"><i class="fas fa-chevron-left"></i></button>
-                        <button class="next-testimonial"><i class="fas fa-chevron-right"></i></button>
+                <div class="testimonials-container">
+                    <div class="testimonials-slider">
+                        <!-- Les témoignages seront générés dynamiquement par JavaScript -->
                     </div>
                 </div>
             </section>
@@ -186,10 +162,9 @@
                 <div class="col-md-2 mb-4 mb-md-0">
                     <h4>Liens</h4>
                     <ul class="footer-links">
-                        <li><a href="../Accueil/Accueil.html">Accueil</a></li>
-                        <li><a href="../Offres/activite.html">Offres</a></li>
-                        <li><a href="../Destinations/destination.html">Destinations</a></li>
-                    
+                        <li><a href="../Acceuil/Acceuil.html" style="text-decoration: none;">Accueil</a></li>
+                        <li><a href="../Offres/activite.html" style="text-decoration: none;">Offres</a></li>
+                        <li><a href="../Destinations/destination.html" style="text-decoration: none;">Destinations</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3 mb-4 mb-md-0">

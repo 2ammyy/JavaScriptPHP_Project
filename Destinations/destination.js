@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Données des destinations avec les chemins d'images mis à jour
+    
+    // Données des destinations
     const destinations = [
         {
             id: 1,
@@ -69,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     ];
 
-    // Données des offres spéciales avec les chemins d'images mis à jour
+    // Données des offres spéciales
     const specialOffers = [
         {
             id: 1,
@@ -103,6 +104,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     ];
 
+    // Données des témoignages avec évaluations
+    const testimonialsData = [
+        {
+            quote: "Le voyage organisé par Travel Agency a dépassé toutes mes attentes. Tout était parfaitement planifié!",
+            author: "Marie D.",
+            trip: "Voyage à Paris",
+            rating: 5,
+            image: "./media/client1.jpg"
+        },
+        {
+            quote: "Une expérience incroyable avec des guides locaux exceptionnels. Je recommande vivement!",
+            author: "Jean P.",
+            trip: "Voyage à Rome",
+            rating: 4,
+            image: "./media/client2.jpg"
+        },
+        {
+            quote: "Service client impeccable et itinéraire bien pensé. Nous reviendrons certainement.",
+            author: "Sophie L.",
+            trip: "Voyage à Tokyo",
+            rating: 5,
+            image: "./media/client3.jpg"
+        }
+    ];
+
     // Références aux éléments DOM
     const destinationsGrid = document.getElementById('destinations-grid');
     const offersGrid = document.getElementById('offers-grid');
@@ -111,10 +137,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const typeFilter = document.getElementById('type');
     const budgetFilter = document.getElementById('budget');
     const applyFiltersBtn = document.getElementById('apply-filters');
+    const testimonialContainer = document.querySelector('.testimonials-slider');
 
     // Afficher toutes les destinations au chargement
     displayDestinations(destinations);
     displayOffers(specialOffers);
+    initTestimonials();
 
     // Filtrer les destinations
     applyFiltersBtn.addEventListener('click', function() {
@@ -150,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
             card.className = 'col-md-6 col-lg-4 col-xl-3 fade-in';
             card.innerHTML = `
                 <div class="destination-card">
-                    <img src="${destination.image}" alt="${destination.name}" ">
+                    <img src="${destination.image}" alt="${destination.name}" >
                     <div class="card-body">
                         <h3>${destination.name}</h3>
                         <p class="location"><i class="fas fa-map-marker-alt"></i> ${destination.location}</p>
@@ -196,6 +224,82 @@ document.addEventListener('DOMContentLoaded', function() {
         animateCards();
     }
 
+    // Initialisation des témoignages avec étoiles
+    function initTestimonials() {
+        let currentTestimonial = 0;
+        let testimonialInterval;
+
+        // Fonction pour générer les étoiles
+        function generateStars(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                stars += i <= rating 
+                    ? '<i class="fas fa-star"></i>' 
+                    : '<i class="far fa-star"></i>';
+            }
+            return `<div class="rating-stars">${stars}</div>`;
+        }
+
+        // Afficher un témoignage
+        function showTestimonial(index) {
+            const testimonial = testimonialsData[index];
+            testimonialContainer.innerHTML = `
+                <div class="testimonial active">
+                    <blockquote>${testimonial.quote}</blockquote>
+                    ${generateStars(testimonial.rating)}
+                    <div class="client-info">
+                        <img src="${testimonial.image}" alt="${testimonial.author}" >
+                        <div>
+                            <p><strong>${testimonial.author}</strong></p>
+                            <p class="trip-info">${testimonial.trip}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <button class="prev-testimonial"><i class="fas fa-chevron-left"></i></button>
+                    <button class="next-testimonial"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            `;
+
+            // Réattacher les événements
+            document.querySelector('.prev-testimonial').addEventListener('click', prevTestimonial);
+            document.querySelector('.next-testimonial').addEventListener('click', nextTestimonial);
+        }
+
+        // Témoignage précédent
+        function prevTestimonial() {
+            currentTestimonial = (currentTestimonial - 1 + testimonialsData.length) % testimonialsData.length;
+            showTestimonial(currentTestimonial);
+            resetInterval();
+        }
+
+        // Témoignage suivant
+        function nextTestimonial() {
+            currentTestimonial = (currentTestimonial + 1) % testimonialsData.length;
+            showTestimonial(currentTestimonial);
+            resetInterval();
+        }
+
+        // Réinitialiser l'intervalle
+        function resetInterval() {
+            clearInterval(testimonialInterval);
+            testimonialInterval = setInterval(nextTestimonial, 5000);
+        }
+
+        // Pause au survol
+        testimonialContainer.addEventListener('mouseenter', () => {
+            clearInterval(testimonialInterval);
+        });
+
+        testimonialContainer.addEventListener('mouseleave', () => {
+            resetInterval();
+        });
+
+        // Initialisation
+        showTestimonial(currentTestimonial);
+        testimonialInterval = setInterval(nextTestimonial, 5000);
+    }
+
     // Animation des cartes
     function animateCards() {
         const cards = document.querySelectorAll('.fade-in');
@@ -214,42 +318,6 @@ document.addEventListener('DOMContentLoaded', function() {
             observer.observe(card);
         });
     }
-
-    // Slider témoignages
-    const testimonials = document.querySelectorAll('.testimonial');
-    let currentTestimonial = 0;
-
-    function showTestimonial(index) {
-        testimonials.forEach(testimonial => {
-            testimonial.classList.remove('active');
-        });
-        
-        testimonials[index].classList.add('active');
-        currentTestimonial = index;
-    }
-
-    // Boutons précédent/suivant
-    document.querySelector('.prev-testimonial').addEventListener('click', function() {
-        let newIndex = currentTestimonial - 1;
-        if (newIndex < 0) newIndex = testimonials.length - 1;
-        showTestimonial(newIndex);
-    });
-
-    document.querySelector('.next-testimonial').addEventListener('click', function() {
-        let newIndex = currentTestimonial + 1;
-        if (newIndex >= testimonials.length) newIndex = 0;
-        showTestimonial(newIndex);
-    });
-
-    // Auto-rotation des témoignages
-    setInterval(() => {
-        let newIndex = currentTestimonial + 1;
-        if (newIndex >= testimonials.length) newIndex = 0;
-        showTestimonial(newIndex);
-    }, 5000);
-
-    // Animation au chargement
-    animateCards();
 
     // Navbar scroll effect
     const navbar = document.querySelector('.navbar');
