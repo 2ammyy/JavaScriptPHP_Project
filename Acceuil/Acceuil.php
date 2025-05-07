@@ -64,7 +64,7 @@
             <a class="nav-link text-white" href="../login/login.php">Connexion</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="../Register/Register.php">Inscription</a>
+            <a class="nav-link text-white" href="../login/register.php">Inscription</a>
         </li>
     <?php endif; ?>
 </ul>
