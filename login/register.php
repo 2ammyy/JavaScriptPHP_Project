@@ -1,178 +1,92 @@
 <?php
-$showSuccess = false;
+session_start();
+require_once __DIR__.'/../config/db.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-
-    try {
-        $bdd = new PDO("mysql:host=$servername;dbname=agence", $username, $password);
-        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        $id = $_POST['id'];
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $plainPassword = $_POST['password'];
-
-        if (!empty($id) && !empty($username) && !empty($email) && !empty($plainPassword)) {
-            $check = $bdd->prepare("SELECT * FROM users WHERE email = :email");
-            $check->execute(['email' => $email]);
-
-            if ($check->rowCount() > 0) {
-                header("Location: pageErreurEmail.php");
+$error = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+    $confirm_password = $_POST['confirm_password'] ?? '';
+    
+    // Validation
+    if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
+        $error = 'Tous les champs sont obligatoires';
+    } elseif ($password !== $confirm_password) {
+        $error = 'Les mots de passe ne correspondent pas';
+    } elseif (strlen($password) < 8) {
+        $error = 'Le mot de passe doit contenir au moins 8 caractères';
+    } else {
+        // Vérification si l'email existe déjà
+        $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        
+        if ($stmt->fetch()) {
+            $error = 'Cet email est déjà utilisé';
+        } else {
+            // Hashage du mot de passe
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            
+            // Insertion dans la base de données
+            $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+            if ($stmt->execute([$username, $email, $hashedPassword])) {
+                $_SESSION['user_id'] = $pdo->lastInsertId();
+                $_SESSION['username'] = $username;
+                header('Location: ../Acceuil/Acceuil.php');
                 exit;
             } else {
-                $hashedPassword = password_hash($plainPassword, PASSWORD_DEFAULT);
-                $stmt = $bdd->prepare("INSERT INTO users (id, username, email, password) VALUES (:id, :username, :email, :password)");
-                $stmt->execute([
-                    'id' => $id,
-                    'username' => $username,
-                    'email' => $email,
-                    'password' => $hashedPassword
-                ]);
-
-                $showSuccess = true;
+                $error = 'Une erreur est survenue lors de l\'inscription';
             }
         }
-    } catch (PDOException $e) {
-        echo "Erreur : " . $e->getMessage();
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up | Travel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - Travel Agency</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .top-logo {
-            margin-top: 30px;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .top-logo .logo {
-            height: 60px; /* ou ce que tu veux */
-            width: auto;
-        }
-
-        body {
-            margin: 0;
-            background-color: #000;
-            color: white;
-            font-family: 'Segoe UI', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            background-color: #121212;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
-            width: 400px;
-            max-width: 90%;
-            position: relative;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        input {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            background-color: #1e1e1e;
-            color: white;
-            font-size: 16px;
-        }
-
-        input:focus {
-            outline: 2px solid #5a5eff;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            background-color: #5a5eff;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: #3a3bff;
-        }
-
-        .popup {
-            display: <?php echo $showSuccess ? 'block' : 'none'; ?>;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #1e1e1e;
-            color: #00ff7f;
-            padding: 20px 40px;
-            border-radius: 12px;
-            box-shadow: 0 0 15px rgba(0, 255, 127, 0.3);
-            font-size: 18px;
-            z-index: 999;
-            animation: fadeIn 0.6s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translate(-50%, -40%); }
-            to { opacity: 1; transform: translate(-50%, -50%); }
-        }
+        body { background-color: #f8f9fa; }
+        .register-container { max-width: 400px; margin: 50px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .form-title { text-align: center; margin-bottom: 20px; color: #7a42f4; }
     </style>
 </head>
 <body>
-<div class="container">
-    <!-- ✅ Logo bien positionné au-dessus du formulaire -->
-    <div class="top-logo">
-        <img src="logo1.png" alt="logo" class="logo" style="width: 200px; height: auto;"/>
+    <div class="container">
+        <div class="register-container">
+            <h2 class="form-title">Inscription</h2>
+            
+            <?php if ($error): ?>
+                <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+            <?php endif; ?>
+            
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Nom d'utilisateur</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mot de passe</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="confirm_password" class="form-label">Confirmer le mot de passe</label>
+                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">S'inscrire</button>
+            </form>
+            
+            <div class="mt-3 text-center">
+                <p>Déjà un compte ? <a href="../login/login.php">Se connecter</a></p>
+            </div>
+        </div>
     </div>
-
-    <form action="register.php" method="post">
-        <div class="form-group">
-            <input type="number" name="id" placeholder="Numéro (id)" required>
-        </div>
-        <div class="form-group">
-            <input type="text" name="username" placeholder="Nom d'utilisateur" required>
-        </div>
-        <div class="form-group">
-            <input type="email" name="email" placeholder="Adresse email" required>
-        </div>
-        <div class="form-group">
-            <input type="password" name="password" placeholder="Mot de passe" required>
-        </div>
-        <button type="submit" class="btn">Créer un compte</button>
-        
-    </form>
-    
-
-    <div class="popup">
-        ✅ Compte créé avec succès !<br>
-        <form action="verification.php" method="get" style="display: inline;">
-            <button type="submit" style="background: none; border: none; color: #5a5eff; cursor: pointer; text-decoration: underline; font-size: 1em;">
-                Cliquez ici pour la vérification.
-            </button>
-        </form>
-    </div>
-    <footer>
-        © 2025 Travel • All rights reserved
-    </footer>
-</div>
-
-
 </body>
 </html>

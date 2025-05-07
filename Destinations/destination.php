@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,7 +9,7 @@
     <!-- Preload -->
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" as="style">
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" as="style">
-    <link rel="preload" href="./css/destination.css" as="style">
+    <link rel="preload" href="./destination.css" as="style">
     <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -16,7 +17,7 @@
 </head>
 <body>
     <!-- Header -->
-    <nav  class="navbar navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
             <div class="d-flex align-items-center">
                 <!-- Drapeau Palestine -->
@@ -28,7 +29,7 @@
                         <polygon points="0,0 13,12 0,24" fill="#e4312b"/>
                     </svg>
                 </div>
-                <a class="navbar-brand text-white me-2" href="../Acceuil/Acceuil.html">TRAVEL</a>
+                <a class="navbar-brand text-white me-2" href="../Acceuil/Acceuil.php">TRAVEL</a>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -36,22 +37,31 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                      <a class="nav-link  text-white" href="../Acceuil/Acceuil.html" aria-current="page">Accueil</a>
+                      <a class="nav-link text-white" href="../Acceuil/Acceuil.php" aria-current="page">Accueil</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link text-white" href="../Offres/activite.html">Activités</a>
+                      <a class="nav-link text-white" href="../Offres/activite.php">Activités</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active text-white" href="./destination.html" >Destinations</a>
+                      <a class="nav-link active text-white" href="./destination.php">Destinations</a>
                     </li>
                     
-                    <li class="nav-item">
-                      <a class="nav-link text-white" href="../login/login.php">Login</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link text-white" href="../Register/Register.html">Register</a>
-                    </li>
-                  </ul>
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                        <li class="nav-item">
+                            <span class="nav-link text-white">Bienvenue, <?= htmlspecialchars($_SESSION['username'] ?? '') ?></span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../login/logout.php">Déconnexion</a>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../login/login.php">Connexion</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../Register/Register.php">Inscription</a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
             </div>
         </div>
     </nav>
@@ -143,6 +153,18 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Nouvelle Section Réservation -->
+            <section id="reservation" class="fade-in py-5 bg-light">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8 text-center">
+                            <h2 class="section-title">Prêt à réserver votre voyage ?</h2>
+                            <p class="mb-5">Remplissez notre formulaire de réservation et notre équipe vous contactera dans les plus brefs délais.</p>
+                            <a href="./reservation.php" class="btn btn-primary btn-lg">Faire une réservation</a>                        </div>
+                    </div>
+                </div>
+            </section>
         </section>
     </main>
 
@@ -154,17 +176,17 @@
                     <h3>TRAVEL</h3>
                     <p>Votre agence de voyage préférée depuis 15 ans.</p>
                     <div class="social-links">
-                        <a href="#" aria-label="Facebook"style="text-decoration: none;"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Instagram"style="text-decoration: none;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Facebook" style="text-decoration: none;"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram" style="text-decoration: none;"><i class="fab fa-instagram"></i></a>
                         <a href="#" aria-label="What's App" style="text-decoration: none;"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
                 <div class="col-md-2 mb-4 mb-md-0">
                     <h4>Liens</h4>
                     <ul class="footer-links">
-                        <li><a href="../Acceuil/Acceuil.html" style="text-decoration: none;">Accueil</a></li>
-                        <li><a href="../Offres/activite.html" style="text-decoration: none;">Activités</a></li>
-                        <li><a href="../Destinations/destination.html" style="text-decoration: none;">Destinations</a></li>
+                        <li><a href="../Acceuil/Acceuil.php" style="text-decoration: none;">Accueil</a></li>
+                        <li><a href="../Offres/activite.php" style="text-decoration: none;">Activités</a></li>
+                        <li><a href="../Destinations/destination.php" style="text-decoration: none;">Destinations</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3 mb-4 mb-md-0">
@@ -190,7 +212,7 @@
                     <p class="m-0">&copy; Travel Agency 2024-2025. Tous droits réservés.</p>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
-                    <a href="#top" style="text-decoration: none;"class="back-to-top"><i class="fas fa-arrow-up"></i> Retour en haut</a>
+                    <a href="#top" style="text-decoration: none;" class="back-to-top"><i class="fas fa-arrow-up"></i> Retour en haut</a>
                 </div>
             </div>
         </div>

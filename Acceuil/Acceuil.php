@@ -38,26 +38,39 @@
       </button>
       
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active text-white" href="../Acceuil/Acceuil.html" aria-current="page">Accueil</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="../Offres/activite.html">Activités</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="../Destinations/destination.html">Destinations</a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link text-white" href="../login/login.php">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="../Register/Register.html">Register</a>
-          </li>
-        </ul>
+      <ul class="navbar-nav">
+    <li class="nav-item">
+        <a class="nav-link text-white" href="./Acceuil.php" aria-current="page">Accueil</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-white" href="../Offres/activite.php">Activités</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active text-white" href="../Destinations/destination.php">Destinations</a>
+    </li>
+    
+    <?php session_start(); ?>
+    <?php if (isset($_SESSION['user_id'])): ?>
+        <!-- Affiché quand l'utilisateur est connecté -->
+        <li class="nav-item">
+            <span class="nav-link text-white">Bienvenue, <?= htmlspecialchars($_SESSION['username']) ?></span>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="../login/logout.php">Déconnexion</a>
+        </li>
+    <?php else: ?>
+        <!-- Affiché quand l'utilisateur est déconnecté -->
+        <li class="nav-item">
+            <a class="nav-link text-white" href="../login/login.php">Connexion</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="../Register/Register.php">Inscription</a>
+        </li>
+    <?php endif; ?>
+</ul>
       </div>
     </div>
+    
   </nav>
 
   <!-- Section principale -->
@@ -77,7 +90,7 @@
         nous avons le voyage parfait pour vous. 
       </p>
       <div class="floating-btn-container">
-        <a href="../Offres/Offres.html" class="floating-btn btn-booking">
+        <a href="../Destinations/destination.php" class="floating-btn btn-booking">
           Booking Now
           <span class="pulse-ring" aria-hidden="true"></span>
         </a>
@@ -268,16 +281,16 @@
           <h3>TRAVEL</h3>
           <p>Votre agence de voyage préférée depuis 15 ans.</p>
           <div class="social-links">
-            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Facebook"style="text-decoration: none;"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"style="text-decoration: none;"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="What's App" style="text-decoration: none;"><i class="fab fa-whatsapp"></i></a>
           </div>
         </div>
         <div class="col-md-2 mb-4 mb-md-0">
           <h4>Liens</h4>
           <ul class="footer-links">
-            <li><a href="../Accueil/Accueil.html">Accueil</a></li>
-            <li><a href="../Offres/Offres.html">Offres</a></li>
+            <li><a href="./Acceuil.html">Accueil</a></li>
+            <li><a href="../Offres/activite.html">Activités</a></li>
             <li><a href="../Destinations/destination.html">Destinations</a></li>
             
           </ul>

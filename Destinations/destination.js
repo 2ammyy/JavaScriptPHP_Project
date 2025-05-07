@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <p class="location"><i class="fas fa-map-marker-alt"></i> ${destination.location}</p>
                         <p>${destination.description}</p>
                         <p class="price">À partir de ${destination.price}</p>
-                        <button class="btn btn-primary">Voir détails</button>
+                        <button class="btn btn-primary" onclick="window.location.href='reservation.php?destination_id=${destination.id}'">Réserver maintenant</button>
                     </div>
                 </div>
             `;
@@ -347,17 +347,18 @@ document.addEventListener('DOMContentLoaded', function() {
         promoVideo.setAttribute('autoplay', '');
         promoVideo.setAttribute('loop', '');
     }
-      // Bouton "To the top" smooth scroll
-  const topButton = document.querySelector('.back-to-top');
-  if (topButton) {
-    topButton.addEventListener('click', function(e) {
-      e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  }
+
+    // Bouton "To the top" smooth scroll
+    const topButton = document.querySelector('.back-to-top');
+    if (topButton) {
+        topButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
 
     // Lazy loading des images
     if ('loading' in HTMLImageElement.prototype) {
