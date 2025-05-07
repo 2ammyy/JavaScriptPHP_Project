@@ -115,14 +115,14 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             quote: "Une expérience incroyable avec des guides locaux exceptionnels. Je recommande vivement!",
-            author: "Jean P.",
+            author: "Sophie L.",
             trip: "Voyage à Rome",
             rating: 4,
             image: "./media/client2.jpg"
         },
         {
             quote: "Service client impeccable et itinéraire bien pensé. Nous reviendrons certainement.",
-            author: "Sophie L.",
+            author: "Jean P.",
             trip: "Voyage à Tokyo",
             rating: 5,
             image: "./media/client3.jpg"
@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Réinitialiser l'intervalle
         function resetInterval() {
             clearInterval(testimonialInterval);
-            testimonialInterval = setInterval(nextTestimonial, 1500);
+            testimonialInterval = setInterval(nextTestimonial, 1000);
         }
 
         // Pause au survol
@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Initialisation
         showTestimonial(currentTestimonial);
-        testimonialInterval = setInterval(nextTestimonial, 1500);
+        testimonialInterval = setInterval(nextTestimonial, 1000);
     }
 
     // Animation des cartes
