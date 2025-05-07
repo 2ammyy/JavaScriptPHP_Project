@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Réinitialiser l'intervalle
         function resetInterval() {
             clearInterval(testimonialInterval);
-            testimonialInterval = setInterval(nextTestimonial, 5000);
+            testimonialInterval = setInterval(nextTestimonial, 1500);
         }
 
         // Pause au survol
@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Initialisation
         showTestimonial(currentTestimonial);
-        testimonialInterval = setInterval(nextTestimonial, 5000);
+        testimonialInterval = setInterval(nextTestimonial, 1500);
     }
 
     // Animation des cartes
@@ -347,6 +347,17 @@ document.addEventListener('DOMContentLoaded', function() {
         promoVideo.setAttribute('autoplay', '');
         promoVideo.setAttribute('loop', '');
     }
+      // Bouton "To the top" smooth scroll
+  const topButton = document.querySelector('.back-to-top');
+  if (topButton) {
+    topButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
 
     // Lazy loading des images
     if ('loading' in HTMLImageElement.prototype) {

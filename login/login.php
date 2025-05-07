@@ -250,7 +250,7 @@
 
 
 <div class="container">
-    <form action="http://localhost/Java/login.php" method="post">
+    <form action="http://localhost/JavaScriptPHP_Project/login/login.php" method="post">
         <div class="form-group">
             <input type="text" name="emailOrPhone" placeholder="Phone number / email address" required>
         </div>
