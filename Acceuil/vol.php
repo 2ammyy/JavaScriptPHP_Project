@@ -30,8 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Réservation de Vol</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <style>
-        /* Ton style existant */
-        /* (Copié à l'identique, je peux le réduire si tu veux) */
+       /* pas faite encore/*
     </style>
 </head>
 <body>
