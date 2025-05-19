@@ -394,14 +394,7 @@
                         <li><i class="fas fa-envelope"></i> contact@travel.com</li>
                     </ul>
                 </div>
-                <div class="col-md-3">
-                    <h4>Newsletter</h4>
-                    <p>Abonnez-vous pour ne rien manquer</p>
-                    <form class="footer-newsletter">
-                        <input type="email" placeholder="Votre email" required>
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                    </form>
-                </div>
+                
             </div>
             <hr class="my-4">
             <div class="row align-items-center">
