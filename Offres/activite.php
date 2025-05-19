@@ -1,5 +1,49 @@
-<?php session_start();
- ?>
+<?php
+session_start(); 
+require '../config/db.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['activity'])) {
+    // Sécurisation des entrées
+    $activite = $conn->real_escape_string($_POST['activity']);
+    $date = $_POST['date'];
+    $nom = $conn->real_escape_string($_POST['name']);
+    $email = $conn->real_escape_string($_POST['email']);
+    $participants = (int)$_POST['participants'];
+    $demandes = $conn->real_escape_string($_POST['special_requests']);
+
+    // Calcul du prix unitaire
+    $prix_unitaire = 0;
+    if ($activite === "Randonnée & Trekking") $prix_unitaire = 500;
+    elseif ($activite === "Sports Nautiques") $prix_unitaire = 350;
+    elseif ($activite === "Voyage Gastronomique") $prix_unitaire = 450;
+
+    $total = $prix_unitaire * $participants;
+
+    // Insertion SQL
+    $sql = "INSERT INTO ReservationActivite 
+            (activite, date, nom_complet, email, participants, demandes_speciales, total)
+            VALUES ('$activite', '$date', '$nom', '$email', $participants, '$demandes', $total)";
+
+    if ($conn->query($sql) === TRUE) {
+        $_SESSION['confirmation'] = [
+            'activite' => $activite,
+            'date' => $date,
+            'nom' => $nom,
+            'email' => $email,
+            'participants' => $participants,
+            'demandes' => $demandes,
+            'total' => $total
+        ];
+        echo "Réservation enregistrée avec succès ✅";
+    } else {
+        echo "Erreur SQL : " . $conn->error;
+    }
+
+    $conn->close();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -718,7 +762,7 @@ body {
             <span class="close-modal">&times;</span>
         </div>
         <div class="modal-body">
-            <form id="reservation-form" method="POST" action="process_reservation.php">
+<form id="reservation-form" method="POST" action="activite.php">
                 <div class="row">
                     <div class="col-md-6 form-group">
                         <label for="activity">Activité:</label>
@@ -825,7 +869,7 @@ body {
                 <ul class="footer-links">
                     <li><a href="../Acceuil/Acceuil.php" style="text-decoration: none;">Accueil</a></li>
                     <li><a href="./activite.php" style="text-decoration: none;">Activités</a></li>
-                    <li><a href="../Destinations/destination.php" style="text-decoration: none;">Destinations</a></li>
+                    <li><a href="../uploads/Destinations/destination.php" style="text-decoration: none;">Destinations</a></li>
                 </ul>
             </div>
             <div class="col-md-3 mb-4 mb-md-0">
@@ -836,14 +880,7 @@ body {
                     <li><i class="fas fa-envelope"></i> contact@travel.com</li>
                 </ul>
             </div>
-            <div class="col-md-3">
-                <h4>Newsletter</h4>
-                <p>Abonnez-vous pour ne rien manquer</p>
-                <form class="footer-newsletter">
-                    <input type="email" placeholder="Votre email" required>
-                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                </form>
-            </div>
+            
         </div>
         <hr class="my-4">
         <div class="row align-items-center">
@@ -1122,5 +1159,30 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('date').min = today;
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    <?php if (isset($_SESSION['confirmation'])): ?>
+        // Ouvre automatiquement le modal de confirmation
+        document.getElementById('confirmation-modal').style.display = 'block';
+        const data = <?= json_encode($_SESSION['confirmation']) ?>;
+        document.getElementById('confirmation-message').textContent = "Merci " + data.nom + " ! Votre réservation est confirmée.";
+        document.getElementById('reservation-details-content').innerHTML = `
+            <p><strong>Activité:</strong> ${data.activite}</p>
+            <p><strong>Date:</strong> ${data.date}</p>
+            <p><strong>Email:</strong> ${data.email}</p>
+            <p><strong>Participants:</strong> ${data.participants}</p>
+            <p><strong>Demandes spéciales:</strong> ${data.demandes || 'Aucune'}</p>
+            <p><strong>Total:</strong> ${data.total} €</p>
+        `;
+        <?php unset($_SESSION['confirmation']); ?>
+    <?php endif; ?>
+
+    // Ferme le modal confirmation
+    document.getElementById('close-confirmation').addEventListener('click', function () {
+        document.getElementById('confirmation-modal').style.display = 'none';
+    });
+});
+</script>
+
 </body>
 </html>
