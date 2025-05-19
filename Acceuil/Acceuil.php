@@ -40,13 +40,16 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav">
     <li class="nav-item">
-        <a class="nav-link text-white" href="./Acceuil.php" aria-current="page">Accueil</a>
+        <a class="nav-link active text-white" href="./Acceuil.php" aria-current="page">Accueil</a>
     </li>
     <li class="nav-item">
         <a class="nav-link text-white" href="../Offres/activite.php">Activités</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link active text-white" href="../Destinations/destination.php">Destinations</a>
+        <a class="nav-link  text-white" href="../uploads/Destinations/destination.php">Destinations</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link  text-white" href="../uploads/Destinations/reservation.php">vol</a>
     </li>
     
     <?php session_start(); ?>
@@ -66,6 +69,11 @@
         <li class="nav-item">
             <a class="nav-link text-white" href="../login/register.php">Inscription</a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-white" href="../login/admin/admin_login.php">Admin</a>
+        </li>
+      
     <?php endif; ?>
 </ul>
       </div>
@@ -90,7 +98,7 @@
         nous avons le voyage parfait pour vous. 
       </p>
       <div class="floating-btn-container">
-        <a href="../Destinations/destination.php" class="floating-btn btn-booking">
+        <a href="../uploads/Destinations/destination.php" class="floating-btn btn-booking">
           Booking Now
           <span class="pulse-ring" aria-hidden="true"></span>
         </a>
@@ -303,14 +311,7 @@
             <li><i class="fas fa-envelope"></i> contact@travel.com</li>
           </ul>
         </div>
-        <div class="col-md-3">
-          <h4>Newsletter</h4>
-          <p>Abonnez-vous pour ne rien manquer</p>
-          <form class="footer-newsletter">
-            <input type="email" placeholder="Votre email" required>
-            <button type="submit"><i class="fas fa-paper-plane"></i></button>
-          </form>
-        </div>
+        
       </div>
       <hr class="my-4">
       <div class="row align-items-center">
