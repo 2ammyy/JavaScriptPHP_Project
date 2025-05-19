@@ -1,8 +1,5 @@
 
-
 <?php 
-
-// c'est mon code (avec controle de saisie et validation) pas de yassmine (voir whatsapp)
 session_start();
 
 // Inclusion du fichier de configuration de la base de données
@@ -14,7 +11,7 @@ $form_submitted = false;
 
 // Vérification de la connexion de l'utilisateur
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../login/login.php");
+    header("Location: ../../login/login.php");
     exit();
 }
 
