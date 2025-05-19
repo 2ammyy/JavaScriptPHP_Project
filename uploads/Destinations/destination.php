@@ -9,10 +9,12 @@
     <!-- Preload -->
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" as="style">
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" as="style">
-    <link rel="preload" href="./destination.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" as="font" crossorigin>
     <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="./destination.css">
 </head>
 <body>
@@ -143,9 +145,201 @@
             <section id="special-offers" class="fade-in">
                 <h2 class="section-title">Offres Spéciales</h2>
                 <div class="row g-4" id="offers-grid">
-                    <!-- Les cartes seront générées par JavaScript -->
                 </div>
             </section>
+
+            <!-- Section Offre Londres -->
+<section id="london-offer" class="offer-section py-5">
+    <div class="container mt-4">
+        <h2 class="text-start">
+            Hilton London Angel Islington 
+            <span class="hotel-rating" aria-label="4 étoiles">
+                <i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i>
+                <i class="far fa-star star"></i>
+            </span>
+        </h2>
+        
+        <div class="slider-container">
+            <div class="slider">
+                <div class="slide active">
+                    <img src="image/l1.webp" alt="Hilton London Room">
+                </div>
+                <div class="slide">
+                    <img src="image/l2.webp" alt="Hilton London Lobby">
+                </div>
+                <div class="slide">
+                    <img src="image/l3.webp" alt="Hilton London Restaurant">
+                </div>
+                <div class="slide">
+                    <img src="image/l4.webp" alt="Hilton London Bathroom">
+                </div>
+                <div class="slide">
+                    <img src="image/l5.webp" alt="Hilton London View">
+                </div>
+                <div class="slide">
+                    <img src="image/l6.webp" alt="Hilton London Facilities">
+                </div>
+                <div class="slide">
+                    <img src="image/l7.webp" alt="Hilton London Exterior">
+                </div>
+            </div>
+            
+           <!-- Contrôles spécifiques à Paris -->
+            <button class="slider-btn prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-btn next"><i class="fas fa-chevron-right"></i></button>
+            
+            <div class="slider-nav">
+                <div class="slider-indicator active"></div>
+                <div class="slider-indicator"></div>
+                <div class="slider-indicator"></div>
+                <div class="slider-indicator"></div>
+                <div class="slider-indicator"></div>
+                <div class="slider-indicator"></div>
+                <div class="slider-indicator"></div>
+            </div>
+        </div>
+
+        <div class="hotel-description">
+            <p>
+                Chambre agréable, literie confortable. Excellent petit-déjeuner varié salé et sucré. Il ne manquait rien. 
+                Très bonne situation à proximité de nombreux transports en commun. 
+                Quartier agréable avec de nombreux restaurants et commerces. Très bon accueil.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Section Offre Rome -->
+<section id="rome-offer" class="offer-section py-5 bg-light">
+    <div class="container mt-4">
+        <h2 class="text-start">
+            Best Western Hotel Le Montparnasse 
+            <span class="hotel-rating" aria-label="4 étoiles">
+                <i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i>
+                <i class="far fa-star star"></i>
+            </span>
+        </h2>
+        
+        <div class="slider-container">
+            <div class="slider">
+                <div class="slide active">
+                    <img src="image/r1.jpg" alt="Chambre de l'hôtel">
+                </div>
+                <div class="slide">
+                    <img src="image/r2.jpg" alt="Salle de bain de l'hôtel">
+                </div>
+                <div class="slide">
+                    <img src="image/r3.jpg" alt="Restaurant de l'hôtel">
+                </div>
+                <div class="slide">
+                    <img src="image/r4.jpg" alt="Vue depuis l'hôtel">
+                </div>
+            </div>
+            
+            <!-- Contrôles spécifiques à Paris -->
+            <button class="slider-btn prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-btn next"><i class="fas fa-chevron-right"></i></button>
+            
+            <div class="slider-nav">
+                <div class="slider-indicator active"></div>
+                <div class="slider-indicator"></div>
+                <div class="slider-indicator"></div>
+                <div class="slider-indicator"></div>
+            </div>
+        </div>
+
+        <div class="hotel-description">
+            <p>
+                Idéalement situé dans le quartier Spagna de Rome, le Ripetta Luxury Del Corso se trouve à 100 mètres de la Piazza del Popolo, à 750 mètres de la Via Condotti et à 400 mètres de la Villa Borghese. Il se trouve à environ 1,4 km de la fontaine de Trevi, à 750 mètres de la place d'Espagne et à 700 mètres de la place d'Espagne. L'établissement assure des services d'étage et de concierge.
+            </p>
+            <p>
+                Les chambres sont équipées de la climatisation, d'une télévision par satellite à écran plat, d'une bouilloire, d'un bidet, d'un sèche-cheveux et d'un bureau. Leur salle de bains privative est pourvue d'une douche et d'articles de toilette gratuits. Toutes les chambres du Ripetta Luxury Del Corso comprennent un coin salon.
+            </p>
+            <p>
+                Un petit-déjeuner continental est servi tous les matins sur place.
+            </p>
+            <p>
+                La Via Margutta se trouve à 350 mètres du Ripetta Luxury Del Corso. L'aéroport de Rome-Ciampino, le plus proche, est implanté à 17,6 km.
+            </p>
+            <p>
+                Les couples apprécient particulièrement l'emplacement de cet établissement. Ils lui donnent la note de 9,8 pour un séjour à deux.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Section Offre Paris -->
+<section id="paris-offer" class="offer-section py-5">
+    <div class="container mt-4">
+        <h2 class="text-start">
+            Ripetta Luxury Del Corso 
+            <span class="hotel-rating" aria-label="5 étoiles">
+                <i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i>
+            </span>
+        </h2>
+        
+        <div class="slider-container">
+            <div class="slider">
+                <div class="slide active">
+                    <img src="image/p1.jpg" alt="Chambre luxueuse">
+                </div>
+                <div class="slide">
+                    <img src="image/p2.jpg" alt="Salle de bain haut de gamme">
+                </div>
+                <div class="slide">
+                    <img src="image/p3.webp" alt="Vue sur Paris">
+                </div>
+                <div class="slide">
+                    <img src="image/p4.webp" alt="Restaurant gastronomique">
+                </div>
+                <div class="slide">
+                    <img src="image/p6.jpg" alt="Piscine intérieure">
+                </div>
+                <div class="slide">
+                    <img src="image/p8.webp" alt="Spa de luxe">
+                </div>
+            </div>
+            
+           <!-- Contrôles spécifiques à Paris -->
+            <button class="slider-btn prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-btn next"><i class="fas fa-chevron-right"></i></button>
+            
+            <div class="slider-nav">
+                <div class="slider-indicator active"></div>
+                <div class="slider-indicator"></div>
+                <div class="slider-indicator"></div>
+                <div class="slider-indicator"></div>
+                <div class="slider-indicator"></div>
+                <div class="slider-indicator"></div>
+            </div>
+        </div>
+
+        <div class="hotel-description">
+            <p>
+                Le Best Western Hotel Le Montparnasse vous accueille à Paris, à 3 minutes à pied de la gare SNCF/station de métro Montparnasse et à 10 minutes de marche du jardin du Luxembourg.
+            </p>
+            <p>
+                Toutes les chambres de l'hôtel sont dotées de la climatisation individuelle et d'une grande télévision par satellite à écran plat. Une connexion Wi-Fi est disponible gratuitement dans tout l'établissement.
+            </p>
+            <p>
+                Vous séjournerez à 20 minutes à pied de Saint-Germain-des-Prés, du Quartier latin et de la célèbre cathédrale Notre-Dame. Le Best Western Hotel Le Montparnasse se trouve à proximité du musée du Louvre.
+            </p>
+            <p>
+                Les couples apprécient particulièrement l'emplacement de cet établissement. Ils lui donnent la note de 9,1 pour un séjour à deux.
+            </p>
+        </div>
+    </div>
+</section>
 
             <!-- Section Témoignages améliorée -->
             <section id="testimonials" class="fade-in">
@@ -224,5 +418,6 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./destination.js" defer></script>
+    
 </body>
 </html>
