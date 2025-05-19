@@ -1,5 +1,153 @@
-document.addEventListener('DOMContentLoaded', function() {
+// Fonction pour initialiser tous les sliders
+function initAllSliders() {
+    document.querySelectorAll('.slider-container').forEach(sliderContainer => {
+        const slider = sliderContainer.querySelector('.slider');
+        const slides = sliderContainer.querySelectorAll('.slide');
+        const indicators = sliderContainer.querySelectorAll('.slider-indicator');
+        const prevBtn = sliderContainer.querySelector('.prev');
+        const nextBtn = sliderContainer.querySelector('.next');
+        let currentSlide = 0;
+        let slideInterval;
+        const slideDuration = 5000; // Augmenté à 5 secondes pour un meilleur confort visuel
+        
+        function updateSlider() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+            
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentSlide);
+            });
+        }
+        
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+            resetSlideShow();
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            updateSlider();
+            resetSlideShow();
+        }
+        
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            updateSlider();
+            resetSlideShow();
+        }
+        
+        function startSlideShow() {
+            slideInterval = setInterval(nextSlide, slideDuration);
+        }
+        
+        function pauseSlideShow() {
+            clearInterval(slideInterval);
+        }
+        
+        function resetSlideShow() {
+            pauseSlideShow();
+            startSlideShow();
+        }
+        
+        // Initialize slider
+        updateSlider();
+        startSlideShow();
+        
+        // Event listeners
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+        
+        // Keyboard navigation
+        sliderContainer.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        });
+        
+        // Indicator click events
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                goToSlide(index);
+            });
+        });
+        
+        // Pause on hover
+        sliderContainer.addEventListener('mouseenter', pauseSlideShow);
+        sliderContainer.addEventListener('mouseleave', startSlideShow);
+    });
+}
+
+// Fonction pour configurer les liens des offres
+function setupOfferLinks() {
+    document.querySelectorAll('.offer-card a.btn-primary').forEach(link => {
+        // Empêcher le comportement par défaut du lien
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Déterminer quelle section cibler en fonction du texte de la carte
+            const cardTitle = this.closest('.offer-card').querySelector('h3').textContent;
+            let targetSectionId = '';
+            
+            if (cardTitle.includes('Paris')) {
+                targetSectionId = 'paris-offer';
+            } else if (cardTitle.includes('Rome')) {
+                targetSectionId = 'rome-offer';
+            } else if (cardTitle.includes('Londres')) {
+                targetSectionId = 'london-offer';
+            }
+            
+            if (targetSectionId) {
+                const targetSection = document.getElementById(targetSectionId);
+                if (targetSection) {
+                    // Calculer la position en prenant en compte la navbar fixe
+                    const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                    const targetPosition = targetSection.offsetTop - navbarHeight;
+                    
+                    // Faire le scroll
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Mettre à jour l'URL sans recharger la page
+                    history.pushState(null, null, '#' + targetSectionId);
+                }
+            }
+        });
+    });
+}
+
+// Fonction principale d'initialisation
+function initPage() {
+    initAllSliders();
+    setupOfferLinks();
     
+    // Gérer le scroll si l'URL contient déjà un hash
+    if (window.location.hash) {
+        const targetSection = document.querySelector(window.location.hash);
+        if (targetSection) {
+            setTimeout(() => {
+                const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                const targetPosition = targetSection.offsetTop - navbarHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }, 100);
+        }
+    }
+}
+
+// Démarrer lorsque le DOM est chargé
+document.addEventListener('DOMContentLoaded', initPage);
+
+document.addEventListener('DOMContentLoaded', function() {
+    initAllSliders();
     // Données des destinations
     const destinations = [
         {
@@ -72,37 +220,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Données des offres spéciales
     const specialOffers = [
-        {
-            id: 1,
-            name: "Promotion à Paris",
-            description: "5 nuits pour le prix de 3 ! Profitez de la ville lumière à prix réduit.",
-            image: "./image/f1.jpg",
-            oldPrice: "4500dt",
-            newPrice: "2700dt",
-            discount: "40%",
-            link: "./offre_paris.html"
-        },
-        {
-            id: 2,
-            name: "Forfait Rome",
-            description: "Weekend tout inclus à partir de 500dt. Vol + Hôtel + Visites guidées.",
-            image: "./image/f2.jpg",
-            oldPrice: "750dt",
-            newPrice: "500dt",
-            discount: "33%",
-            link: "./off_rome.html"
-        },
-        {
-            id: 3,
-            name: "Escapade Londres",
-            description: "Économisez 20% sur votre séjour. Offre valable jusqu'au 30/11/2024.",
-            image: "./image/f3.jpg",
-            oldPrice: "3600dt",
-            newPrice: "2880dt",
-            discount: "20%",
-            link: "./off_lond.html"
-        }
-    ];
+    {
+        id: 1,
+        name: "Promotion à Paris",
+        description: "5 nuits pour le prix de 3 ! Profitez de la ville lumière à prix réduit.",
+        image: "./image/f1.jpg",
+        oldPrice: "4500dt",
+        newPrice: "2700dt",
+        discount: "40%",
+        link: "#"  // Changé ici
+    },
+    {
+        id: 2,
+        name: "Forfait Rome",
+        description: "Weekend tout inclus à partir de 500dt. Vol + Hôtel + Visites guidées.",
+        image: "./image/f2.jpg",
+        oldPrice: "750dt",
+        newPrice: "500dt",
+        discount: "33%",
+        link: "#"  // Changé ici
+    },
+    {
+        id: 3,
+        name: "Escapade Londres",
+        description: "Économisez 20% sur votre séjour. Offre valable jusqu'au 30/11/2024.",
+        image: "./image/f3.jpg",
+        oldPrice: "3600dt",
+        newPrice: "2880dt",
+        discount: "20%",
+        link: "#"  // Changé ici
+    }
+];
 
     // Données des témoignages avec évaluations
     const testimonialsData = [
@@ -196,34 +344,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Fonction pour afficher les offres spéciales
-    function displayOffers(offersToDisplay) {
-        offersGrid.innerHTML = '';
+function displayOffers(offersToDisplay) {
+    offersGrid.innerHTML = '';
 
-        offersToDisplay.forEach(offer => {
-            const card = document.createElement('div');
-            card.className = 'col-md-6 col-lg-3 fade-in';
-            card.innerHTML = `
-                <div class="offer-card">
-                    <img src="${offer.image}" alt="${offer.name}" >
-                    <div class="card-body">
-                        <h3>${offer.name}</h3>
-                        <span class="discount">-${offer.discount}</span>
-                        <p>${offer.description}</p>
-                        <p>
-                            <span class="price">${offer.oldPrice}</span>
-                            <span class="new-price">${offer.newPrice}</span>
-                        </p>
-                        <a href="${offer.link}" class="btn btn-primary">Voir l'offre</a>
-                    </div>
+    offersToDisplay.forEach(offer => {
+        const card = document.createElement('div');
+        card.className = 'col-md-6 col-lg-3 fade-in';
+        card.innerHTML = `
+            <div class="offer-card">
+                <img src="${offer.image}" alt="${offer.name}">
+                <div class="card-body">
+                    <h3>${offer.name}</h3>
+                    <span class="discount">-${offer.discount}</span>
+                    <p>${offer.description}</p>
+                    <p>
+                        <span class="price">${offer.oldPrice}</span>
+                        <span class="new-price">${offer.newPrice}</span>
+                    </p>
+                    <a href="#" class="btn btn-primary">Voir l'offre</a>
                 </div>
-            `;
-            offersGrid.appendChild(card);
-        });
+            </div>
+        `;
+        offersGrid.appendChild(card);
+    });
 
-        // Animation des cartes
-        animateCards();
-    }
-
+    // Animation des cartes
+    animateCards();
+    
+    // Configurer les liens après la création des cartes
+    setupOfferLinks();
+}
     // Initialisation des témoignages avec étoiles
     function initTestimonials() {
         let currentTestimonial = 0;
