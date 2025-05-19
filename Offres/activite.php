@@ -1,143 +1,160 @@
+<?php session_start();
+ ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Activités de Voyage</title>
+    <!-- Preload -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" as="font" crossorigin>
+    <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=flight" />
-    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Acceuil/style.css"> <!-- Lien vers le même CSS que l'accueil -->
     <style>
-        
-        
-        *{
-            margin:0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body{
+       
+
+body {
+    padding-top: 80px; 
+    background: linear-gradient(#f1f3ff, #cbd4ff);
             min-height: 100vh;
-            background: linear-gradient(#f1f3ff,#cbd4ff);
-            margin-left: 260px;
-            transition: margin 0.4s ease;
-        }
+}
 
-        body.collapsed-sidebar {
-            margin-left: 85px;
-        }
+/* Styles améliorés pour les boutons */
+.btn-primary {
+    background-color: #2696e9;
+    border: none;
+    padding: 12px 24px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
 
-        .sidebar-brand {
-            font-size: 1em;
-            font-weight: 700;
-            text-transform: uppercase;
-            align-items: none;
-            color: #fff;
-        }
-        .sidebar{
-            position: fixed;
-            top:0;
-            left:0;
-            width: 260px;
-            height: 100vh;
-            background: #151a2e;
-            transition: all 0.4s ease;
-            z-index: 1000;
-        }
+.btn-primary:hover {
+    background-color: #1a6eb5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-        .sidebar.collapsed{
-            width: 85px;
-        }
-        .sidebar .sidebar-header{
-            display: flex;
-            align-items: center;
-            padding: 25px 20px;
-            justify-content: space-between;
-        }
-        .sidebar-header .header-logo img{
-            height: 46px;
-            width: 46px;
-            display: block;
-            object-fit: contain;
-            border-radius: 50%;
-        }
-        .sidebar-header .sidebar-toggler
-        {
-            position: absolute;
-            right: 20px;
-            height: 35px;
-            width: 35px;
-            border: none;
-            cursor:pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            background: #eef2ff;
-            transition: 0.4s ease;
-        }
-        .sidebar-header .sidebar-toggler:hover{
-            background: #d9e1fd;
-        }
-        .sidebar.collapsed .sidebar-toggler{
-            transform: translate(-4px, 65px);
-        }
-        .sidebar.collapsed .sidebar-toggler span
-        {
-            transform: rotate(180deg);
-        }
-        .sidebar-header .sidebar-toggler span {
-            font-size: 1.75rem;
-            transition: 0.4s ease;
-        }
-        .sidebar-nav .nav-list{
-            list-style: none;
-            display: flex;
-            gap: 4px;
-            padding: 0 15px;
-            flex-direction: column;
-            transform: translateY(15px);
-            transition: 0.4s ease;
-        }
-        .sidebar.collapsed .sidebar-nav .primary-nav{
-            transform: translateY(65px);
-        }
+/* Modal de réservation amélioré */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1050;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+}
 
-        .sidebar-nav .nav-item .nav-link
-        {
-            color: #fff;
-            display: flex;
-            gap: 12px;
-            white-space: nowrap;
-            padding: 11px 15px;
-            align-items: center;
-            text-decoration: none;
-            border-radius: 8px;
-            border: 1px solid #151a2e;
-            transition: 0.4s ease;
-        }
-        .sidebar-nav .nav-item:hover >.nav-link{
-            color: #151a2e;
-            background: #eef2ff;
-        }
-        .sidebar-nav .nav-item .nav-label{
-            transition: opacity 0.3s ease;
-        }
-        .sidebar.collapsed .nav-link .nav-label{
-            opacity: 0;
-            position: absolute;
-        }
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 0;
+    border-radius: 12px;
+    box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+    width: 90%;
+    max-width: 600px;
+    overflow: hidden;
+    animation: modalopen 0.4s;
+}
 
-        /* Active nav item */
-        .sidebar-nav .nav-item.active > .nav-link {
-            background: #eef2ff;
-            color: #151a2e;
-            font-weight: bold;
-        }
+@keyframes modalopen {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-        /* Main content styles */
+.modal-header {
+    padding: 20px;
+    background: linear-gradient(135deg, #2696e9, #1a6eb5);
+    color: white;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.modal-body {
+    padding: 25px;
+}
+
+.close-modal {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.close-modal:hover {
+    transform: rotate(90deg);
+    color: #f1f1f1;
+}
+
+/* Formulaires améliorés */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-control, .form-select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #2696e9;
+    box-shadow: 0 0 0 0.25rem rgba(38, 150, 233, 0.25);
+    outline: none;
+}
+
+/* Confirmation modal */
+#confirmation-modal .modal-content {
+    text-align: center;
+}
+
+#confirmation-modal .modal-header {
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+}
+
+#confirmation-modal .fa-check-circle {
+    color: #4CAF50;
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 10% auto;
+        width: 95%;
+    }
+    
+    body {
+        padding-top: 70px;
+    }
+}
+
         header {
             text-align: center;
             padding: 2rem 0;
@@ -158,6 +175,7 @@
 
         section {
             padding: 2rem 0;
+            
         }
         
         h2 {
@@ -200,19 +218,6 @@
             height: 100%;
             object-fit: cover;
         }
-        /*
-
-        .slider-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 15px;
-            text-align: center;
-            font-size: 1.2rem;
-        }*/
 
         .carousel-nav {
             position: absolute;
@@ -413,49 +418,8 @@
             background: #1a6eb5;
         }
 
-        /* Footer */
-        footer {
-            background: #151a2e;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            height: 2cm;
-        }
-
-        footer p {
-            margin-bottom: 1rem;
-        }
-
-        footer a {
-            color: white;
-            margin: 0 1rem;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        footer a:hover {
-            color: #2696e9;
-        }
-
         /* Responsive styles */
         @media (max-width: 992px) {
-            body {
-                margin-left: 0;
-            }
-            
-            .sidebar {
-                transform: translateX(-100%);
-            }
-            
-            .sidebar.collapsed {
-                transform: translateX(0);
-                width: 85px;
-            }
-            
-            .sidebar.show {
-                transform: translateX(0);
-            }
-            
             .Carousel-slider {
                 height: 400px;
             }
@@ -509,109 +473,75 @@
                 width: 200px;
                 margin: 0 auto;
             }
-
-
-            
-        /* Floating action button */
-        .fab {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: #2696e9;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            z-index: 99;
-            transition: all 0.3s ease;
-        }
-
-        .fab:hover {
-            background: #1a6eb5;
-            transform: scale(1.1);
-        }
         }
     </style>
 </head>
 <body>
-    <!--Sidebar-->
-   
-    <aside class="sidebar">
-        <header class="sidebar-header">
-            <a href="#" class="sidebar-brand" style="text-decoration-line: none;">
-                Travel
-            </a>
-            <button class="sidebar-toggler">
-                <span class="material-symbols-rounded">
-                    chevron_left
-                </span>
-            </button>
-        </header>
-        <nav class="sidebar-nav">
-            <ul class="nav-list primary-nav">
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <span class="material-symbols-rounded">
-                            home
-                        </span>
-                        <span class="nav-label">Acceuil</span>
-                    </a>
-                </li>
-                <li class="nav-item active">
-                    <a href="#" class="nav-link">
-                        <span class="material-symbols-rounded">
-                            featured_seasonal_and_gifts
-                        </span>
-                        <span class="nav-label">Offres</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <span class="material-symbols-rounded">
-                            travel_explore
-                        </span>
-                        <span class="nav-label">Destinations</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <span class="material-symbols-outlined">
-                            flight
-                        </span>
-                        <span class="nav-label">Vol</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <span class="material-symbols-rounded">
-                            favorite
-                        </span>
-                        <span class="nav-label">Activités</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </aside>
-     <!-- Floating action button -->
-     <div class="fab" id="fab">
-        <i class="fas fa-question"></i>
-    </div>
-
     <main>
-        <header>
-            <h1>Découvrez Nos Activités de Voyage</h1>
-            <p>Des aventures inoubliables pour chaque type de voyageur</p>
-        </header>
+        <!-- Header -->
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container-fluid">
+        <div class="d-flex align-items-center">
+            <!-- Drapeau Palestine -->
+            <div class="palestine-flag" aria-label="Drapeau de la Palestine">
+                <svg viewBox="0 0 36 24" width="30" height="20" aria-hidden="true">
+                    <rect y="0" width="36" height="8" fill="#000"/>
+                    <rect y="8" width="36" height="8" fill="#fff"/>
+                    <rect y="16" width="36" height="8" fill="#009736"/>
+                    <polygon points="0,0 13,12 0,24" fill="#e4312b"/>
+                </svg>
+            </div>
+            <a class="navbar-brand text-white me-2" href="../Acceuil/Acceuil.php">TRAVEL</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="../Acceuil/Acceuil.php">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-white" href="./activite.php">Activités</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="../uploads/Destinations/destination.php">Destinations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="../uploads/Destinations/reservation.php">Vol</a>
+                </li>
+                
+                
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <li class="nav-item">
+                        <span class="nav-link text-white">Bienvenue, <?= htmlspecialchars($_SESSION['username']) ?></span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../login/logout.php">Déconnexion</a>
+                    </li>
+                <?php else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../login/login.php">Connexion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../login/register.php">Inscription</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../login/admin/admin_login.php">Admin</a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </div>
+    </div>
+</nav>
         
         <!--Carousel-->
         <section class="recherche-hebergement py-5">
+            
             <div class="container text-center">
+                <h1>Découvrez Nos Activités de Voyage</h1>
+                <p>Des aventures inoubliables pour chaque type de voyageur</p>
                 <h2>Découvrez </h2>
                 <div class="row g-4 justify-content-center mt-4">
                     <div class="col-6 col-md-4 col-lg-2">
@@ -781,278 +711,416 @@
         </section>
 
         <!-- Reservation Modal -->
-        <div id="reservation-modal" class="modal" style="display: none;">
-            <div class="modal-content">
-                <span class="close-modal">&times;</span>
-                <h2>Réservation</h2>
-                <form id="reservation-form">
-                    <div class="form-group">
+<div id="reservation-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2><i class="fas fa-calendar-check me-2"></i>Réservation</h2>
+            <span class="close-modal">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="reservation-form" method="POST" action="process_reservation.php">
+                <div class="row">
+                    <div class="col-md-6 form-group">
                         <label for="activity">Activité:</label>
-                        <select id="activity" name="activity" required>
+                        <select id="activity" name="activity" class="form-select" required>
                             <option value="">-- Sélectionnez une activité --</option>
-                            <option value="Randonnée & Trekking">Randonnée & Trekking</option>
-                            <option value="Sports Nautiques">Sports Nautiques</option>
-                            <option value="Voyage Gastronomique">Voyage Gastronomique</option>
+                            <option value="Randonnée & Trekking">Randonnée & Trekking (500€)</option>
+                            <option value="Sports Nautiques">Sports Nautiques (350€)</option>
+                            <option value="Voyage Gastronomique">Voyage Gastronomique (450€)</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="name">Nom complet:</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
+                    <div class="col-md-6 form-group">
                         <label for="date">Date:</label>
-                        <input type="date" id="date" name="date" required>
+                        <input type="date" id="date" name="date" class="form-control" required>
                     </div>
-                    <div class="form-group">
-                        <label for="participants">Nombre de participants:</label>
-                        <input type="number" id="participants" name="participants" min="1" required>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="name">Nom complet:</label>
+                        <input type="text" id="name" name="name" class="form-control" 
+                               value="<?= isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : '' ?>" required>
                     </div>
-                    <button type="submit">Confirmer la réservation</button>
+                    <div class="col-md-6 form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" class="form-control" 
+                               value="<?= isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : '' ?>" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="participants">Nombre de participants:</label>
+                    <input type="number" id="participants" name="participants" min="1" max="10" 
+                           class="form-control" value="1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="special_requests">Demandes spéciales (optionnel):</label>
+                    <textarea id="special_requests" name="special_requests" class="form-control" rows="3"></textarea>
+                </div>
+                
+                <div class="price-summary p-3 mb-4 bg-light rounded">
+                    <h5><i class="fas fa-receipt me-2"></i>Récapitulatif</h5>
+                    <div class="d-flex justify-content-between">
+                        <span>Prix unitaire:</span>
+                        <span id="unit-price">0</span>€
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Participants:</span>
+                        <span id="participants-count">1</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between fw-bold">
+                        <span>Total:</span>
+                        <span id="total-price">0</span>€
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-100 py-3">
+                    <i class="fas fa-check-circle me-2"></i>Confirmer la réservation
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div id="confirmation-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2><i class="fas fa-check-circle me-2"></i>Réservation confirmée!</h2>
+            <span class="close-modal">&times;</span>
+        </div>
+        <div class="modal-body text-center">
+            <i class="fas fa-check-circle fa-5x text-success mb-4"></i>
+            <p id="confirmation-message" class="lead"></p>
+            
+            <div class="reservation-details p-3 mb-4 bg-light rounded text-start">
+                <h5 class="mb-3"><i class="fas fa-info-circle me-2"></i>Détails de la réservation</h5>
+                <div id="reservation-details-content"></div>
+            </div>
+            
+            <button id="close-confirmation" class="btn btn-success">
+                <i class="fas fa-thumbs-up me-2"></i>Parfait, merci!
+            </button>
+        </div>
+    </div>
+</div>
+
+        <!-- Footer -->
+<footer class="py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4 mb-md-0">
+                <h3>TRAVEL</h3>
+                <p>Votre agence de voyage préférée depuis 15 ans.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook" style="text-decoration: none;"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram" style="text-decoration: none;"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="What's App" style="text-decoration: none;"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="col-md-2 mb-4 mb-md-0">
+                <h4>Liens</h4>
+                <ul class="footer-links">
+                    <li><a href="../Acceuil/Acceuil.php" style="text-decoration: none;">Accueil</a></li>
+                    <li><a href="./activite.php" style="text-decoration: none;">Activités</a></li>
+                    <li><a href="../Destinations/destination.php" style="text-decoration: none;">Destinations</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-4 mb-md-0">
+                <h4>Contact</h4>
+                <ul class="footer-contact">
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Rue du Voyage, Ariana</li>
+                    <li><i class="fas fa-phone"></i> +216 23 45 67 89</li>
+                    <li><i class="fas fa-envelope"></i> contact@travel.com</li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h4>Newsletter</h4>
+                <p>Abonnez-vous pour ne rien manquer</p>
+                <form class="footer-newsletter">
+                    <input type="email" placeholder="Votre email" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
                 </form>
             </div>
         </div>
-
-        <!-- Confirmation Modal -->
-        <div id="confirmation-modal" class="modal" style="display: none;">
-            <div class="modal-content">
-                <span class="close-modal">&times;</span>
-                <h2>Réservation confirmée!</h2>
-                <p id="confirmation-message"></p>
-                <button id="close-confirmation">Fermer</button>
+        <hr class="my-4">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="m-0">&copy; Travel Agency 2024-2025. Tous droits réservés.</p>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <a href="#top" style="text-decoration: none;" class="back-to-top"><i class="fas fa-arrow-up"></i> Retour en haut</a>
             </div>
         </div>
+    </div>
+</footer>
     </main>
-
-    <footer>
-        <p>© 2025 Activités de Voyage | Tous droits réservés</p>
-    
-    </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+    <!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" async></script>
+<script src="../Acceuil/script.js" defer></script> <!-- Lien vers le même JS que l'accueil -->
+
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Sidebar toggle
-            const sidebarToggler = document.querySelector(".sidebar-toggler");
-            const sidebar = document.querySelector(".sidebar");
-            const body = document.body;
-            
-            sidebarToggler.addEventListener("click", () => {
-                sidebar.classList.toggle("collapsed");
-                body.classList.toggle("collapsed-sidebar");
-            });
+document.addEventListener("DOMContentLoaded", function() {
+    // ==================== CAROUSEL FUNCTIONALITY ====================
+    const sliderItems = document.querySelectorAll('.slider-item');
+    const indicators = document.querySelectorAll('.indicator');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    const hebergementImgs = document.querySelectorAll('.hebergement-img');
+    
+    let currentIndex = 0;
+    let slideInterval;
+    const slideDuration = 5000; // 5 seconds
 
-            // Carousel functionality
-            const sliderItems = document.querySelectorAll('.slider-item');
-            const indicators = document.querySelectorAll('.indicator');
-            const prevBtn = document.querySelector('.prev-btn');
-            const nextBtn = document.querySelector('.next-btn');
-            const hebergementImgs = document.querySelectorAll('.hebergement-img');
-            
-            let currentIndex = 0;
-            let slideInterval;
-            const slideDuration = 5000; // 5 seconds
+    // Show specific slide
+    function showSlide(index) {
+        // Update current index
+        currentIndex = index;
+        
+        // Hide all slides
+        sliderItems.forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // Show current slide
+        sliderItems[currentIndex].classList.add('active');
+        
+        // Update indicators
+        indicators.forEach(indicator => {
+            indicator.classList.remove('active');
+        });
+        indicators[currentIndex].classList.add('active');
+    }
 
-            // Show specific slide
-            function showSlide(index) {
-                // Update current index
-                currentIndex = index;
-                
-                // Hide all slides
-                sliderItems.forEach(item => {
-                    item.classList.remove('active');
-                });
-                
-                // Show current slide
-                sliderItems[currentIndex].classList.add('active');
-                
-                // Update indicators
-                indicators.forEach(indicator => {
-                    indicator.classList.remove('active');
-                });
-                indicators[currentIndex].classList.add('active');
-            }
+    // Next slide
+    function nextSlide() {
+        const nextIndex = (currentIndex + 1) % sliderItems.length;
+        showSlide(nextIndex);
+    }
 
-            // Next slide
-            function nextSlide() {
-                const nextIndex = (currentIndex + 1) % sliderItems.length;
-                showSlide(nextIndex);
-            }
+    // Previous slide
+    function prevSlide() {
+        const prevIndex = (currentIndex - 1 + sliderItems.length) % sliderItems.length;
+        showSlide(prevIndex);
+    }
 
-            // Previous slide
-            function prevSlide() {
-                const prevIndex = (currentIndex - 1 + sliderItems.length) % sliderItems.length;
-                showSlide(prevIndex);
-            }
+    // Auto-play
+    function startAutoPlay() {
+        slideInterval = setInterval(nextSlide, slideDuration);
+    }
 
-            // Auto-play
-            function startAutoPlay() {
-                slideInterval = setInterval(nextSlide, slideDuration);
-            }
+    function pauseAutoPlay() {
+        clearInterval(slideInterval);
+    }
 
-            function pauseAutoPlay() {
-                clearInterval(slideInterval);
-            }
+    // Initialize carousel
+    showSlide(0);
+    startAutoPlay();
 
+    // Event listeners
+    prevBtn.addEventListener('click', () => {
+        pauseAutoPlay();
+        prevSlide();
+        startAutoPlay();
+    });
 
-            // Initialize carousel
-            showSlide(0);
+    nextBtn.addEventListener('click', () => {
+        pauseAutoPlay();
+        nextSlide();
+        startAutoPlay();
+    });
+
+    // Indicators click
+    indicators.forEach(indicator => {
+        indicator.addEventListener('click', () => {
+            const slideIndex = parseInt(indicator.dataset.slide);
+            pauseAutoPlay();
+            showSlide(slideIndex);
             startAutoPlay();
-
-            // Event listeners
-            prevBtn.addEventListener('click', () => {
-                pauseAutoPlay();
-                prevSlide();
-                startAutoPlay();
-            });
-
-            nextBtn.addEventListener('click', () => {
-                pauseAutoPlay();
-                nextSlide();
-                startAutoPlay();
-            });
-
-            // Indicators click
-            indicators.forEach(indicator => {
-                indicator.addEventListener('click', () => {
-                    const slideIndex = parseInt(indicator.dataset.slide);
-                    pauseAutoPlay();
-                    showSlide(slideIndex);
-                    startAutoPlay();
-                });
-            });
-
-            // Pause on hover
-            const carousel = document.querySelector('.Carousel-slider');
-            carousel.addEventListener('mouseenter', pauseAutoPlay);
-            carousel.addEventListener('mouseleave', startAutoPlay);
-
-            // Hébergement images click
-            hebergementImgs.forEach(img => {
-                img.addEventListener('click', function() {
-                    const carouselIndex = parseInt(this.getAttribute('data-carousel'));
-                    pauseAutoPlay();
-                    showSlide(carouselIndex);
-                    startAutoPlay();
-                    
-                    // Scroll to carousel
-                    document.getElementById('Carousel-slider').scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
-
-            // Activity details navigation
-            document.querySelectorAll('#categories-activites a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    
-                    // Hide all details sections
-                    document.querySelectorAll('#randonnée-details, #plongée-details, #gastronomie-details').forEach(section => {
-                        section.style.display = 'none';
-                    });
-                    
-                    // Show target section
-                    document.querySelector(targetId).style.display = 'block';
-                    
-                    // Scroll to target section
-                    document.querySelector(targetId).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
-
-            // Modal functionality
-            const reservationModal = document.getElementById('reservation-modal');
-            const confirmationModal = document.getElementById('confirmation-modal');
-            const openModalBtn = document.getElementById('open-reservation-modal');
-            const closeModalBtns = document.querySelectorAll('.close-modal');
-            const closeConfirmationBtn = document.getElementById('close-confirmation');
-            const reservationForm = document.getElementById('reservation-form');
-            const reservationButtons = document.querySelectorAll('.reservation-btn');
-
-            // Open modal from main reservation button
-            openModalBtn.addEventListener('click', () => {
-                reservationModal.style.display = 'block';
-            });
-
-            // Open modal from activity reservation buttons
-            reservationButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const activity = this.getAttribute('data-activity');
-                    document.getElementById('activity').value = activity;
-                    reservationModal.style.display = 'block';
-                });
-            });
-
-            // Close modals
-            closeModalBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    reservationModal.style.display = 'none';
-                    confirmationModal.style.display = 'none';
-                });
-            });
-
-            closeConfirmationBtn.addEventListener('click', () => {
-                confirmationModal.style.display = 'none';
-            });
-
-            // Close modal when clicking outside
-            window.addEventListener('click', (e) => {
-                if (e.target === reservationModal) {
-                    reservationModal.style.display = 'none';
-                }
-                if (e.target === confirmationModal) {
-                    confirmationModal.style.display = 'none';
-                }
-            });
-
-            // Form submission
-            reservationForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Get form values
-                const activity = document.getElementById('activity').value;
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const date = document.getElementById('date').value;
-                const participants = document.getElementById('participants').value;
-                
-             
-                // Create confirmation message
-                const confirmationMessage = `
-                    Merci ${name} pour votre réservation!<br><br>
-                    <strong>Détails:</strong><br>
-                    Activité: ${activity}<br>
-                    Date: ${new Date(date).toLocaleDateString('fr-FR')}<br>
-                    Nombre de participants: ${participants}<br><br>
-                    Un email de confirmation a été envoyé à ${email}.
-                `;
-                
-                // Show confirmation
-                document.getElementById('confirmation-message').innerHTML = confirmationMessage;
-                reservationModal.style.display = 'none';
-                confirmationModal.style.display = 'block';
-                
-                // Reset form
-                this.reset();
-            });
-
-            // Set minimum date to today
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('date').min = today;
         });
+    });
 
-          // FAB functionality
-          document.getElementById('fab').addEventListener('click', () => {
-            showModal('Aide', 'Comment pouvons-nous vous aider? Contactez notre service client au +216 55 723 448 ou par email à contact@travelagency.tn');
+    // Pause on hover
+    const carousel = document.querySelector('.Carousel-slider');
+    carousel.addEventListener('mouseenter', pauseAutoPlay);
+    carousel.addEventListener('mouseleave', startAutoPlay);
+
+    // Hébergement images click
+    hebergementImgs.forEach(img => {
+        img.addEventListener('click', function() {
+            const carouselIndex = parseInt(this.getAttribute('data-carousel'));
+            pauseAutoPlay();
+            showSlide(carouselIndex);
+            startAutoPlay();
+            
+            // Scroll to carousel
+            document.getElementById('Carousel-slider').scrollIntoView({
+                behavior: 'smooth'
+            });
         });
-    </script>
+    });
+
+    // ==================== ACTIVITY DETAILS NAVIGATION ====================
+    document.querySelectorAll('#categories-activites a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            
+            // Hide all details sections
+            document.querySelectorAll('#randonnée-details, #plongée-details, #gastronomie-details').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show target section
+            document.querySelector(targetId).style.display = 'block';
+            
+            // Scroll to target section
+            document.querySelector(targetId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // ==================== RESERVATION MODAL FUNCTIONALITY ====================
+    const reservationModal = document.getElementById('reservation-modal');
+    const confirmationModal = document.getElementById('confirmation-modal');
+    const openModalBtn = document.getElementById('open-reservation-modal');
+    const closeModalBtns = document.querySelectorAll('.close-modal');
+    const closeConfirmationBtn = document.getElementById('close-confirmation');
+    const reservationForm = document.getElementById('reservation-form');
+    const reservationButtons = document.querySelectorAll('.reservation-btn');
+    const activitySelect = document.getElementById('activity');
+    const participantsInput = document.getElementById('participants');
+    const unitPriceSpan = document.getElementById('unit-price');
+    const participantsCountSpan = document.getElementById('participants-count');
+    const totalPriceSpan = document.getElementById('total-price');
+
+    // Calculate total price in real-time
+    function calculateTotal() {
+        const selectedOption = activitySelect.options[activitySelect.selectedIndex];
+        let unitPrice = 0;
+        
+        // Extract price from selected option
+        if (selectedOption) {
+            const optionText = selectedOption.text;
+            const priceMatch = optionText.match(/\((\d+)€\)/);
+            if (priceMatch) {
+                unitPrice = parseFloat(priceMatch[1]);
+            }
+        }
+        
+        const participants = parseInt(participantsInput.value) || 1;
+        const total = unitPrice * participants;
+        
+        unitPriceSpan.textContent = unitPrice.toFixed(2);
+        participantsCountSpan.textContent = participants;
+        totalPriceSpan.textContent = total.toFixed(2);
+    }
+
+    // Event listeners for price calculation
+    activitySelect.addEventListener('change', calculateTotal);
+    participantsInput.addEventListener('input', calculateTotal);
+
+    // Initialize price calculation
+    calculateTotal();
+
+    // Open modal function
+    function openModal() {
+        reservationModal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+
+    // Close modal function
+    function closeModal() {
+        reservationModal.style.display = 'none';
+        confirmationModal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+
+    // Open from main reservation button
+    openModalBtn.addEventListener('click', openModal);
+
+    // Open from activity reservation buttons
+    reservationButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const activity = this.getAttribute('data-activity');
+            
+            // Find matching option
+            const options = Array.from(activitySelect.options);
+            const option = options.find(opt => opt.text.includes(activity));
+            
+            if (option) {
+                option.selected = true;
+                calculateTotal();
+            }
+            
+            openModal();
+        });
+    });
+
+    // Close modals
+    closeModalBtns.forEach(btn => {
+        btn.addEventListener('click', closeModal);
+    });
+
+    closeConfirmationBtn.addEventListener('click', closeModal);
+
+    // Close when clicking outside
+    window.addEventListener('click', (e) => {
+        if (e.target === reservationModal || e.target === confirmationModal) {
+            closeModal();
+        }
+    });
+
+    // Form submission
+    reservationForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form values
+        const formData = new FormData(this);
+        const activity = activitySelect.options[activitySelect.selectedIndex].text;
+        const name = formData.get('name');
+        const email = formData.get('email');
+        const date = formData.get('date');
+        const participants = formData.get('participants');
+        const unitPrice = parseFloat(unitPriceSpan.textContent);
+        const totalPrice = parseFloat(totalPriceSpan.textContent);
+        
+        // Create confirmation message
+        const confirmationMessage = `Merci ${name}, votre réservation a bien été enregistrée !`;
+        
+        const reservationDetails = `
+            <p><strong>Activité:</strong> ${activity.split(' (')[0]}</p>
+            <p><strong>Date:</strong> ${new Date(date).toLocaleDateString('fr-FR')}</p>
+            <p><strong>Participants:</strong> ${participants}</p>
+            <p><strong>Prix total:</strong> ${totalPrice.toFixed(2)}€</p>
+            ${formData.get('special_requests') ? `<p><strong>Demandes:</strong> ${formData.get('special_requests')}</p>` : ''}
+        `;
+        
+        // Show confirmation
+        document.getElementById('confirmation-message').textContent = confirmationMessage;
+        document.getElementById('reservation-details-content').innerHTML = reservationDetails;
+        
+        // In a real application, you would submit the form here
+        // For this example, we'll just show the confirmation
+        reservationModal.style.display = 'none';
+        confirmationModal.style.display = 'block';
+        
+        // Optional: Reset form
+        // this.reset();
+        // calculateTotal();
+    });
+
+    // Set minimum date to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('date').min = today;
+});
+</script>
 </body>
 </html>
