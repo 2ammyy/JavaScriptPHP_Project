@@ -331,7 +331,7 @@ $suggestedMax = $maxReservations + 2; // Ajoute une marge de 2 au-dessus du maxi
                 <div class="card">
                     <h3><i class="fas fa-calendar-check"></i> Réservations</h3>
                     <div class="card-value"><?= $totalReservations ?></div>
-                    <a href="traiter_reservation.php" class="card-btn">Gérer les réservations</a>
+                    <a href="reservation.php" class="card-btn">Gérer les réservations</a>
                 </div>
             </div>
             
