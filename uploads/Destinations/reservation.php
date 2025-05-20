@@ -292,7 +292,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label for="type_voyage" class="required">Type de voyage</label>
                     <select name="type_voyage" id="type_voyage" required>
                         <option value="">-- Sélectionnez --</option>
-                        <option value="aller-simple" <?= isset($_POST['type_voyage']) && $_POST['type_voyage'] === 'aller-simple' ? 'selected' : '' ?>>Aller simple</option>
+                        <option value="aller simple" <?= isset($_POST['type_voyage']) && $_POST['type_voyage'] === 'aller simple' ? 'selected' : '' ?>>Aller simple</option>
                         <option value="aller-retour" <?= isset($_POST['type_voyage']) && $_POST['type_voyage'] === 'aller-retour' ? 'selected' : '' ?>>Aller-retour</option>
                     </select>
                 </div>
@@ -420,5 +420,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         });
     </script>
+
+    <div style="text-align: center; margin-top: 20px;">
+    <a href="./destination.php" style="
+        display: inline-block;
+        padding: 12px 24px;
+        background-color: #2980b9;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: background 0.3s ease;
+    " onmouseover="this.style.backgroundColor='#1c5980'" onmouseout="this.style.backgroundColor='#2980b9'">
+        Retour à la page principale
+    </a>
+</div>
+
 </body>
 </html>
