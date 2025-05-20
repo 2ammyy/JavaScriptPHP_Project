@@ -26,10 +26,7 @@ if (!$destination) {
 $error = '';
 $success = '';
 
-// Fonction de redimensionnement (identique à add_destination.php)
-function resizeImage($filePath, $maxWidth, $maxHeight) {
-    // ... (même fonction que dans add_destination.php)
-}
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name']);
@@ -110,15 +107,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Modifier une Destination</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Styles identiques à add_destination.php */
-    </style>
+    
 </head>
 <body>
     <div class="d-flex">
-        <!-- Sidebar (identique) -->
+        
         <div class="sidebar p-3">
-            <!-- ... même sidebar que précédemment ... -->
+            
         </div>
 
         <!-- Main Content -->
