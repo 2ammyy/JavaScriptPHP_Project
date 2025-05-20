@@ -5,12 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Travel Agency - Découvrez des voyages fantastiques à travers le monde avec nos offres exclusives">
   <title>Accueil - Travel Agency</title>
-  <!-- Preload des ressources critiques -->
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" as="style">
   <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" as="style">
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" as="font" crossorigin>
   <link rel="preload" href="./3.mp4" as="video" type="video/mp4">
-  
   <!-- CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
@@ -31,7 +29,7 @@
             <polygon points="0,0 13,12 0,24" fill="#e4312b"/>
           </svg>
         </div>
-        <a class="navbar-brand text-white me-2" href="../Acceuil/Acceuil.html">TRAVEL</a>
+        <a class="navbar-brand text-white me-2" href="./Acceuil.php">TRAVEL</a>
       </div>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -279,9 +277,9 @@
         <div class="col-md-2 mb-4 mb-md-0">
           <h4>Liens</h4>
           <ul class="footer-links">
-            <li><a href="./Acceuil.html">Accueil</a></li>
-            <li><a href="../Offres/activite.html">Activités</a></li>
-            <li><a href="../Destinations/destination.html">Destinations</a></li>
+            <li><a href="./Acceuil.php">Accueil</a></li>
+            <li><a href="../Offres/activite.php">Activités</a></li>
+            <li><a href="../uploads/Destinations/destination.php">Destinations</a></li>
             
           </ul>
         </div>
