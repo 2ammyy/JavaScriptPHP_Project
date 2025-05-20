@@ -65,6 +65,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" href="../../login/register.php">Inscription</a>
                         </li>
+                         <li class="nav-item">
+            <a class="nav-link text-white" href="../../login/admin/admin_login.php">Admin</a>
+        </li>
                     <?php endif; ?>
                 </ul>
             </div>
