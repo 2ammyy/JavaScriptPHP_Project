@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Effet de typewriter pour le titre principal (seulement sur desktop)
+  // Effet de typewriter pour le titre Voyage fantastique
   if (window.innerWidth > 768) {
     const title = document.querySelector('.home h1');
     if (title) {
