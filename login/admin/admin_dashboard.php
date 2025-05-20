@@ -54,7 +54,7 @@ foreach ($reservationsByDay as $item) {
 
 // Calcul du maximum des données pour le graphique
 $maxReservations = !empty($reservationsData) ? max($reservationsData) : 0;
-$suggestedMax = $maxReservations + 2; // Ajoute une marge de 2 au-dessus du maximum
+$suggestedMax = $maxReservations + 2; 
 ?>
 
 <!DOCTYPE html>
