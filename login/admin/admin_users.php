@@ -2,7 +2,6 @@
 session_start();
 require '../../config/db.php';
 
-// Sécurité : redirection si non connecté en tant qu'admin
 if (!isset($_SESSION['admin_id'])) {
     header("Location: admin_login.php");
     exit;
