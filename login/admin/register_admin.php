@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../../config/db.php'; // Connexion à la base de données
+require '../../config/db.php'; 
 
 // Vérification de l'authentification de l'administrateur
 
