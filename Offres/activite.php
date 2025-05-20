@@ -1,48 +1,3 @@
-<?php
-session_start(); 
-require '../config/db.php';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['activity'])) {
-    // Sécurisation des entrées
-    $activite = $conn->real_escape_string($_POST['activity']);
-    $date = $_POST['date'];
-    $nom = $conn->real_escape_string($_POST['name']);
-    $email = $conn->real_escape_string($_POST['email']);
-    $participants = (int)$_POST['participants'];
-    $demandes = $conn->real_escape_string($_POST['special_requests']);
-
-    // Calcul du prix unitaire
-    $prix_unitaire = 0;
-    if ($activite === "Randonnée & Trekking") $prix_unitaire = 500;
-    elseif ($activite === "Sports Nautiques") $prix_unitaire = 350;
-    elseif ($activite === "Voyage Gastronomique") $prix_unitaire = 450;
-
-    $total = $prix_unitaire * $participants;
-
-    // Insertion SQL
-    $sql = "INSERT INTO ReservationActivite 
-            (activite, date, nom_complet, email, participants, demandes_speciales, total)
-            VALUES ('$activite', '$date', '$nom', '$email', $participants, '$demandes', $total)";
-
-    if ($conn->query($sql) === TRUE) {
-        $_SESSION['confirmation'] = [
-            'activite' => $activite,
-            'date' => $date,
-            'nom' => $nom,
-            'email' => $email,
-            'participants' => $participants,
-            'demandes' => $demandes,
-            'total' => $total
-        ];
-        echo "Réservation enregistrée avec succès ✅";
-    } else {
-        echo "Erreur SQL : " . $conn->error;
-    }
-
-    $conn->close();
-}
-?>
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -462,6 +417,20 @@ body {
             background: #1a6eb5;
         }
 
+        .reservation-btn{
+             background-color: #2696e9;
+            border: none;
+            padding: 12px 24px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+        .reservation-btn:hover {
+            background-color: #1a6eb5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
         /* Responsive styles */
         @media (max-width: 992px) {
             .Carousel-slider {
@@ -754,7 +723,7 @@ body {
             <button id="open-reservation-modal">Réserver maintenant</button>
         </section>
 
-        <!-- Reservation Modal -->
+      <!-- Reservation Modal -->
 <div id="reservation-modal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -762,7 +731,7 @@ body {
             <span class="close-modal">&times;</span>
         </div>
         <div class="modal-body">
-<form id="reservation-form" method="POST" action="activite.php">
+<form id="reservation-form">
                 <div class="row">
                     <div class="col-md-6 form-group">
                         <label for="activity">Activité:</label>
@@ -782,13 +751,11 @@ body {
                 <div class="row">
                     <div class="col-md-6 form-group">
                         <label for="name">Nom complet:</label>
-                        <input type="text" id="name" name="name" class="form-control" 
-                               value="<?= isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : '' ?>" required>
+                        <input type="text" id="name" name="name" class="form-control" required>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" class="form-control" 
-                               value="<?= isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : '' ?>" required>
+                        <input type="email" id="email" name="email" class="form-control" required>
                     </div>
                 </div>
                 
@@ -807,8 +774,7 @@ body {
                     <h5><i class="fas fa-receipt me-2"></i>Récapitulatif</h5>
                     <div class="d-flex justify-content-between">
                         <span>Prix unitaire:</span>
-                        <span id="unit-price">0</span>€
-                    </div>
+                        <span id="unit-price">0</span>€</div>
                     <div class="d-flex justify-content-between">
                         <span>Participants:</span>
                         <span id="participants-count">1</span>
@@ -850,6 +816,7 @@ body {
         </div>
     </div>
 </div>
+
 
         <!-- Footer -->
 <footer class="py-4">
