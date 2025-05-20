@@ -131,7 +131,6 @@ img {
   75% { transform: translateY(2px) rotate(-1deg); }
 }
 
-/* Section Hero */
 .home {
   position: relative;
   min-height: 100vh;
